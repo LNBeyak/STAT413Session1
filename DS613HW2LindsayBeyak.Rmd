@@ -1,0 +1,96 @@
+---
+title: "HW 2"
+author: "Lindsay Beyak"
+date: "2/19/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+#### Exercise 1
+
+The USArrests dataset contains arrests that occurred in the USA in 1973 for assault, murder, and rape.Each of the 50 states are listed with 4 columns measured numerically. The 'Murder', 'Arrest', and Rape columns indicate arrests (per 100,000), while the 'UrbanPop' column represents the percentage urban population.
+
+```{r}
+library(tidyverse)
+USArrests
+
+typeof(USArrests)
+
+length(USArrests)
+
+dim(USArrests)
+```
+#### Exercise 2
+
+Based on the following code, the state with the most Assaults is North Carolina with 337. 
+
+```{r echo = TRUE, error = FALSE}
+
+map_dbl(USArrests, max)
+```
+
+#### Exercise 3
+```{r}
+library(nycflights13)
+flights
+``` 
+
+#### Exercise 4
+A tibble is a data frame that is more unified than a traditional R data frame. Tibble is part of the tidyverse package. It is a more organized data frame to give a cleaner overview of the columns and rows. 
+
+```{r}
+#counts for length of columns and rows
+length(flights)
+nrow(flights)
+ncol(flights)
+
+#Tibble confirmations for flights
+count(flights)
+is_tibble(flights)
+class(flights)
+```
+#### Exercise 5
+
+Below shows the code to reveal each column type of the flights tibble. 
+```{r}
+typeflcol <- vector("list", ncol(nycflights13::flights))
+names(typeflcol) <- names(nycflights13::flights)
+for (i in names(nycflights13::flights)) {
+  typeflcol[[i]] <- class(nycflights13::flights[[i]])
+}
+typeflcol
+```
+
+#### Exercise 6
+
+```{r}
+
+imodels <- iris %>%
+  split(.$Species) %>%
+  map(~lm(Sepal.Width ~ Sepal.Length, data = .))
+imodels
+```
+
+#### Exercise 7 
+
+```{r}
+V <- list(12, 22, 27, 31.5, NA, 39, "east")
+V
+
+#7a Length of the list
+length(V)
+
+#7b Extract the missing value
+V[is.na(V)]
+
+#7c Third object extracted
+V[3]
+
+#7d Extracting the character string and the minimum number
+V[min(1:6)]
+V[7]
+
+#7e 7th line of code is a character object
+str(V)
+
